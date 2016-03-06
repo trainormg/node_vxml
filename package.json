@@ -2,7 +2,7 @@
   "name": "node_vxml",
   "version": "1.0.0",
   "description": "simple test project for node.js, vxml, cloud based services",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
