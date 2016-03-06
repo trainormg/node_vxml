@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1" xmlns:voxeo="http://community.voxeo.com/xmlns/vxml">
+
+	<form id="F1">
+		<property name="recordutterance" value="true"/>
+		<field name="F_1">
+			<grammar xml:lang="it-it" version="1.0" root="myrule" mode="voice">
+				<rule id="myrule">
+					<item>
+						Grammatica.
+					</item>
+				</rule>
+			</grammar>
+
+			<prompt xml:lang="it-it">
+Messaggio in italiano da claud nain.
+			</prompt>
+
+			<filled>
+				<log expr="F_1$.utterance" label="filled"/>
+				<prompt xml:lang="it-it">
+filled: <value expr="F_1"/>.
+<!-- value expr="application.lastresult$.recording"/ -->
+utterance: <value expr="F_1$.utterance"/>
+				</prompt>
+			</filled>
+			<noinput>
+				<log expr="F_1$.utterance" label="noinput"/>
+				<prompt>
+noinput
+				</prompt>
+			</noinput>
+			<nomatch>
+				<log expr="F_1$.utterance" label="nomatch"/>
+				<prompt>
+nomatch
+				</prompt>
+			</nomatch>
+			<error>
+				<prompt xml:lang="it-it">
+Errore.
+				</prompt>
+			</error>
+		</field>
+	</form>
+</vxml>

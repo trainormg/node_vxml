@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1" xmlns:voxeo="http://community.voxeo.com/xmlns/vxml">
+<form id="F1">
+  <record name="F_record" beep="true" dtmfterm="true" finalsilence="2s" voxeo:trimms="300" voxeo:trimcondition="maxtime,maxsilence">
+    <prompt xml:lang="it-it">
+      Parlate dopo il segnale acustico. 
+    </prompt>
+    <filled>
+      <log expr="F_record$.duration" />
+      <log expr="F_record$.termchar" />
+      <log expr="F_record$.size" />
+      <!--prompt>
+        Your recording was <value expr="F_record"/>
+      </prompt-->
+      <var name="callerId" expr="session.callerid"/>
+      <var name="callerANI" expr="session.telephone.ani"/>
+      <submit enctype="multipart/form-data" method="POST" next="/stt" namelist="F_record callerId callerANI"/>
+    </filled>
+  </record>
+  <noinput>
+    <log expr="'noinput'" label="noinput"/>
+    <submit next="/view/bye.xml"/>
+  </noinput>
+  <nomatch>
+    <log expr="'nomatch'" label="nomatch"/>
+    <submit next="/view/bye.xml"/>
+  </nomatch>
+</form>
+</vxml>

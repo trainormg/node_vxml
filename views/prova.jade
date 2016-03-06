@@ -1,0 +1,33 @@
+doctype html
+html
+  meta(http-equiv="X-UA-Compatible", content="IE=11")
+  head
+    title Prova
+  body
+    ul
+      li userAgent:
+        #userAgent
+      li document.compatMode:
+        #docComaptMode
+        #appCodeName
+      li appCodeName:
+        #appCodeName
+      li appName:
+        #appName
+      li appVersion:
+        #appVersion
+      li platform
+        #platform
+      li product:
+        #product
+
+    script(type='text/javascript').
+      var nav = window.navigator;
+      document.getElementById("appCodeName").innerHTML = nav.appCodeName;
+      document.getElementById("appName").innerHTML = nav.appName;
+      document.getElementById("appVersion").innerHTML = nav.appVersion;
+      document.getElementById("platform").innerHTML = nav.platform;
+      document.getElementById("product").innerHTML = nav.product;
+      document.getElementById("userAgent").innerHTML = nav.userAgent;
+      document.getElementById("userAgent").innerHTML = docuemnt.compatMode;
+

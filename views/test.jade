@@ -1,0 +1,12 @@
+doctype html
+html
+  head
+    title Test
+    link(href='/static/ches.css', rel='stylesheet')
+  body
+    form(action="/stt", method="post", enctype="multipart/form-data")
+      |file name: 
+      input#F_record(type="file", name="F_record")
+      input(type="submit", value="submit")
+    hr
+    

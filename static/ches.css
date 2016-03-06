@@ -1,0 +1,244 @@
+html {
+	width: 36em;
+	font-size: 1em;
+	font-family: sans-serif;
+	color: #191960;
+	background: #fff;
+}
+
+body {
+	margin-left: 1em;
+	overflow-x: hidden;
+/*	-webkit-text-size-adjust: none;*/
+}
+
+p {	margin-left: 0em;
+	margin-bottom: 1ex;
+	margin-top: 0.5ex;
+}
+
+h1 {
+	margin-left: -2.5em; 
+	margin-right: -100em;	/* title can extend */
+	font-size: 1.5em;
+	margin-bottom: 1ex;
+}
+
+h2 {
+	font-size: 1.3em; 
+	margin-left: -2em; 
+	padding-top: 0.0em;
+	padding-bottom: 0.0em;
+	margin-bottom: 1ex;
+}
+
+h3 {
+	margin-left: 0em;
+	margin-top: 1.5ex;
+	margin-bottom: 0.3ex;
+	padding-top: 0.0em;
+	padding-bottom: 0.0em;
+}
+
+h4, h5, h6 {
+	font-size: 1em;
+	display: inline;
+	margin-left: 0em;
+	margin-top: 0ex;
+	margin-bottom: 0.0ex;
+	padding-top: 0.0em;
+	padding-bottom: 0.0em;
+}
+
+menu, ul, ol {
+	margin-left: 0em;	/* was -1.3 */
+	list-style-position: outside;
+	margin-top: 0.0em;
+	margin-bottom: 0.0em;
+}
+
+.dotless {
+	list-style: none;
+	text-indent: -2em;
+	padding-left: 2em;
+}
+
+li {	margin-left: 0em;
+	margin-top: 0.0em;
+	margin-bottom: 0.0em;
+}
+
+pre {
+	font-size: 1em;
+	margin-left: 1em;
+	margin-right: -100em;	/* weird text can extend */
+	color: #000;
+/*	white-space: pre-wrap;*/
+	font-family: monospace;
+}
+
+a { font-style: italic; }
+
+a:link {
+	color: #591990;
+	font-style: italic;
+	text-decoration: none;}
+
+a:visited {
+	color: #191960;
+	font-style: italic;
+	text-decoration: none; }
+
+a:hover {
+	color: #000000;
+	font-style: italic;
+	text-decoration: underline; }
+
+a:active {
+	color: #000000;
+	font-style: italic;
+	text-decoration: none; }
+
+a img {
+	border: none; }
+
+.links {
+  float: left;
+  padding: 10px; }
+
+img {
+	float: left;
+	margin: 0 0.5em 1ex 0em;
+}
+
+.right {
+	float: right;
+}
+
+.alone {
+	float: none;
+}
+
+/* I don't understand the following; needs work */
+
+#contentSub, .dablink {
+  margin-bottom: 10px; }
+
+#firstHeading {
+  font-size: 1.7em; }
+
+.section_anchors a {
+  display: block; }
+
+.section_anchor {
+  height: 1px;
+  width: 1px; }
+
+
+.printonly, .geo-multi-punct, .geo-nondefault, .Z3988 {
+  display: none; }
+
+
+.thumb {
+  border: 1px solid #ccc;
+/*  -webkit-border-radius: 5px;*/
+/*  -moz-border-radius: 5px;*/
+  background: #f9f9f9;
+  margin-bottom: 10px; }
+  .thumb .thumbinner[style] {
+    margin: 5px auto; }
+  .thumb .thumbcaption {
+    width: 100%;
+    margin: 5px 10px 0;
+    text-align: center;
+    width: auto !important; }
+
+img.thumbborder {
+  border: 1px solid #ccc; }
+
+
+.floatright {
+  float: right; }
+
+
+#header {
+  margin: 8px 8px 0 8px; }
+
+#content_wrapper {
+  clear: both;
+  margin: 0 8px; }
+
+#footer {
+  margin: 0 8px; }
+
+#header img, #header form, #header input, #header button {
+  vertical-align: middle;
+  display: inline-block; }
+
+
+#searchbox {
+  width: auto;
+  padding: 5px;
+  border: 1px solid #ccc;
+/*  -webkit-border-radius: 2px;*/
+/*  -moz-border-radius: 2px;*/
+}
+  #searchbox a, #searchbox img {
+    border: 0px;
+    vertical-align: middle; }
+  #searchbox #goButton {
+    border: 0;
+    background: url(/images/s.gif) no-repeat top left;
+    height: 25px;
+    width: 27px; }
+  #searchbox #searchField {
+    width: auto; }
+
+
+#nav {
+/*  -webkit-border-radius: 2px;*/
+/*  -moz-border-radius: 2px;*/
+  clear: both;
+  padding: 5px 0; }
+  #nav form, #nav button {
+    display: inline-block; }
+  #nav button {
+    background: url(/images/buttonbg.gif) no-repeat center;
+    border: 0;
+    height: 23px;
+    width: 83px; }
+
+
+.notice {
+  padding: 5px;
+  background: #ddd;
+/*  -webkit-border-radius: 5px;*/
+  margin-top: 5px;
+  text-align: center;
+  border: 1px solid grey; }
+
+
+.message.notice {
+  font-size: 1.1em; }
+
+
+#footer {
+  padding-top: 1em; }
+  #footer #perm {
+    padding-top: 1em;
+    font-size: 80%; }
+  #footer #copyright {
+    padding: 1em 0;
+    font-size: 80%; }
+
+
+ol.references > li:target,
+sup.reference:target,
+span.citation:target, cite:target {
+  background-color: #DEF; }
+
+
+.content_block,
+.section_anchors,
+button.section_heading.hide {
+  display: none; }
