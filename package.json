@@ -1,7 +1,7 @@
 {
   "name": "node_vxml",
   "version": "1.0.0",
-  "description": "",
+  "description": "simple test project for node.js, vxml, cloud based services",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/trainormg/node_vxml/issues"
   },
-  "homepage": "https://github.com/trainormg/node_vxml"
+  "homepage": "https://github.com/trainormg/node_vxml",
+  "dependencies": {
+    "express": "^4.13.4",
+    "jade": "^1.11.0",
+    "multer": "^1.1.0"
+  }
 }
