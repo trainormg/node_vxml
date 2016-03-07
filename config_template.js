@@ -14,6 +14,11 @@ var config = {
   bing: {
     clientId: 'your bing client ID',
     clientSecret: 'your bing secret'
+  },
+  
+  loggly: {
+    token: "your loggly token",
+    subdomain: "your loggly subdomain"
   }
 };
 

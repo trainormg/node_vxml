@@ -20,13 +20,27 @@ var config = require("./config");
 
 var winston = require('winston');
 
+require('winston-loggly');
+ 
+// winston.add(winston.transports.Loggly, {
+//     token: "dd345110-9200-4061-8841-6c830090aaa5",
+//     subdomain: "trainor",
+//     tags: ["Winston-NodeJS"],
+//     json:true
+// });
+
 var logger = new (winston.Logger)({
-    level: 'debug',
-    transports: [
-      new (winston.transports.Console)(),
-//      new (winston.transports.File)({ filename: 'somefile.log' })
-    ]
-  });
+  level: 'debug',
+  transports: [
+    new (winston.transports.Console)(),
+//  new (winston.transports.File)({ filename: 'somefile.log' })
+    new (winston.transports.Loggly)({
+      token: config.loggly.token,
+      subdomain: config.loggly.subdomain,
+      tags: ["Winston-NodeJS"],
+      json:true})
+  ]
+});
 
 
 
