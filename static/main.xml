@@ -14,7 +14,8 @@
       </prompt-->
       <var name="callerId" expr="session.callerid"/>
       <var name="callerANI" expr="session.telephone.ani"/>
-      <submit enctype="multipart/form-data" method="POST" next="/stt" namelist="F_record callerId callerANI"/>
+      <var name="sessionId" expr="session.sessionid"/>
+      <submit enctype="multipart/form-data" method="POST" next="/stt" namelist="F_record callerId callerANI sessionId"/>
     </filled>
   </record>
   <noinput>

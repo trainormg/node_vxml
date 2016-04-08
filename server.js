@@ -46,6 +46,7 @@ var logger = new (winston.Logger)({
 
 var nuance = require("./lib/nuance")(config, logger);
 var bing = require("./lib/bing")(config, logger);
+var hound = require("./lib/hound")(config, logger);
 
 // dipendenza da google rimossa, i servizi sono solo a pagamento
 // var google = require("./lib/google")(config);
@@ -65,7 +66,12 @@ app.get('/test', function (req, res) {
   // nuance.speechToText("../upload/F_record.wav", 'de52072c5f395566ddf94fdc4c4769cdf568e829', function(testo) {
   //   console.log("fine test: '%s'", testo);
   // });
+  try {
   logger.debug('test page called', req.path);
+  //askHound('1');
+  } catch(err) {
+    logger.error('Error on test page ', err);
+  }
   res.render('test');
 });
 
@@ -82,11 +88,11 @@ function translate(text, callback) {
 }
 
 
-function convertSpeechToText(destination, path, id, callback) {
-  var fileName = destination + '/' + id + '.wav';
+function convertSpeechToText(destination, path, userId, callback) {
+  var fileName = destination + '/' + userId + '.wav';
   fs.renameSync(path, fileName);
 
-  nuance.speechToText(fileName, id, function onNuanceDone(err, text) {
+  nuance.speechToText(fileName, userId, function onNuanceDone(err, text) {
   
     if (err) {
       logger.error("Nuance STT error: '%s'", err.message);
@@ -98,9 +104,9 @@ function convertSpeechToText(destination, path, id, callback) {
   });
 }
 
-function convertAndTranslate(destination, path, id, callback) {
+function convertAndTranslate(destination, path, userId, callback) {
   logger.info("start convert and translate");
-  convertSpeechToText(destination, path, id, function(err, text) {
+  convertSpeechToText(destination, path, userId, function(err, text) {
     var data = {};
     
     logger.debug('conversion done, text: ', text);
@@ -118,29 +124,91 @@ function convertAndTranslate(destination, path, id, callback) {
   });
 }
 
+function askHound(userId, sessionId, query, callback) {
+  hound.askHound(userId, sessionId, query, function(err, houndBody) {
+    if (err) {
+      logger.error("Hound error: '%s'", err.message);
+      callback(err, {});
+    } else {
+      logger.debug("fine hound: ", houndBody);
+      callback(null, houndBody);
+    }
+  });
+}
+
+function convertTranslateHoundify(destination, path, userId, sessionId, callback) {
+  logger.info("start convert and translate");
+
+  convertAndTranslate(destination, path, userId, function(err, data) {
+    if (err) {
+      callback(err, data);
+    } else {
+      askHound(userId, sessionId, data.translation, function(err, houndBody) {
+        data.houndBody = houndBody;
+        if (houndBody && houndBody.AllResults) {
+          // get hound result
+          var hr = houndBody.AllResults[0];
+          logger.info("Hound CommandKind: '%s'", (hr && hr.CommandKind));
+          if (hr && hr.CommandKind != 'NoResultCommand') {
+            data.houndResponse = hr.SpokenResponseLong;
+            logger.info("Hound spoken response: '%s'", hr.SpokenResponseLong)
+          } else {
+            logger.info("Hound command not recognized");
+          }
+        } else {
+          logger.warn("Hound response empty");
+        }
+        callback(err, data);
+      });
+    }
+  });  
+}
+
 
 // riceve il file audio, lo rinomina e lo invia a Nuance per la tradizione in testo
 app.post('/stt', upload.single('F_record'), function (req, res) {
+  logger.profile('process stt request');
+
   var ani = "ani_undefined";
   var hash = crypto.createHash('sha1');
+  var sessionId;
   
   logger.info('\n**** STT ****');
-  logger.profile('process stt request');
+  
   // console.log(req);
   if (req.body) {
     ani = req.body.callerANI || ani;
   }
   hash.update(ani);
-  var id = hash.digest('hex');
+  var userId = hash.digest('hex');
+
+  if (req.body) {
+    sessionId = req.body.sessionId;
+  }
+  if (!sessionId) {
+    sessionId = userId;
+    logger.warn('sessionId undefined, using userId');
+  }
+  
+  logger.info("userId: '%s', sessionId: '%s'", userId, sessionId);
   
 //  res.send('result: <pre>' + JSON.stringify(req.file, null, 2) + '</pre>');
 //  fs.rename(req.file.path, req.file.destination + '/F_record.wav');
-  convertAndTranslate(req.file.destination, req.file.path, id, function (err, data) {
+  var myData = {};
+
+  convertTranslateHoundify(req.file.destination, req.file.path, userId, sessionId, function (err, data) {
     data.err = err;
     logger.debug('data: ', data);
     res.render('stt', data);
     logger.profile('process stt request');
   });
+
+  // convertAndTranslate(req.file.destination, req.file.path, userId, myData, function (err, data) {
+  //   data.err = err;
+  //   logger.debug('data: ', data);
+  //   res.render('stt', data);
+  //   logger.profile('process stt request');
+  // });
   // var fileName = req.file.destination + '/' + id + '.wav';
   // fs.renameSync(req.file.path, fileName);
   // nuance.speechToText(fileName, id, function(err, text) {

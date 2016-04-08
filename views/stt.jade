@@ -6,7 +6,9 @@ vxml(version="2.1", xmlns:voxeo="http://community.voxeo.com/xmlns/vxml")
         prompt(xml:lang="it-it") Spiacente, si e' verificato un errore.
       else
         prompt(xml:lang="it-it") Ecco cosa ho capito: #{text}.
-        if translation
+        if houndResponse
+          prompt #{houndResponse}
+        else if translation
           prompt In English:  #{translation}
 
       prompt(xml:lang="it-it") Vuoi riprovare?

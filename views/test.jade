@@ -4,9 +4,15 @@ html
     title Test
     link(href='/static/ches.css', rel='stylesheet')
   body
+    h1 Speech to Text
     form(action="/stt", method="post", enctype="multipart/form-data")
-      |file name: 
+      |file audio: 
       input#F_record(type="file", name="F_record")
       input(type="submit", value="submit")
     hr
+    h1 Hound
+    form(action="/testhound", method="post", enctype="multipart/form-data")
+      |file audio: 
+      input#F_record(type="file", name="F_record")
+      input(type="submit", value="submit")
     
