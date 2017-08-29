@@ -6,9 +6,10 @@
 		<field name="F_1">
 			<grammar xml:lang="it-it" version="1.0" root="myrule" mode="voice">
 				<rule id="myrule">
-					<item>
-						Grammatica.
-					</item>
+					<one-of>
+			      <item><ruleref special="GARBAGE"/></item>
+			      <item><ruleref special="NULL"/></item>
+					</one-of>
 				</rule>
 			</grammar>
 
@@ -39,6 +40,9 @@ utterance: <value expr="F_1$.utterance"/>
 				</prompt>
 			</nomatch>
 			<error>
+				
+				<!-- non e' possibile loggare la variabile qui: se null causa loop.
+				log expr="F_1$.utterance" label="error"/ -->
 				<prompt xml:lang="it-it">
 Errore.
 				</prompt>

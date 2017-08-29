@@ -3,7 +3,7 @@
 <form id="F1">
   <record name="F_record" beep="true" dtmfterm="true" finalsilence="2s" voxeo:trimms="300" voxeo:trimcondition="maxtime,maxsilence">
     <prompt xml:lang="it-it">
-      Parlate dopo il segnale acustico. 
+      Parla, ti ascolto.
     </prompt>
     <filled>
       <log expr="F_record$.duration" />
@@ -16,6 +16,9 @@
       <var name="callerANI" expr="session.telephone.ani"/>
       <var name="sessionId" expr="session.sessionid"/>
       <submit enctype="multipart/form-data" method="POST" next="/stt" namelist="F_record callerId callerANI sessionId"/>
+      <block>
+        <clear/>
+      </block>
     </filled>
   </record>
   <noinput>
@@ -26,5 +29,14 @@
     <log expr="'nomatch'" label="nomatch"/>
     <submit next="/view/bye.xml"/>
   </nomatch>
+  <block>
+    <clear/>
+  </block>
+</form>
+<form id="F_retry">
+  <block>
+    <clear namelist="F_record F1"/>
+    <goto next="F1"/>
+  </block>
 </form>
 </vxml>

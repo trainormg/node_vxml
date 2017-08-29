@@ -10,7 +10,10 @@ vxml(version="2.1", xmlns:voxeo="http://community.voxeo.com/xmlns/vxml")
           prompt #{houndResponse}
         else if translation
           prompt In English:  #{translation}
-
+    |<block name="B_1">
+    goto(next="#F_exit")/
+    |</block>
+    //  
       prompt(xml:lang="it-it") Vuoi riprovare?
       filled.
         <log label="filled" expr="F_1"/>

@@ -166,6 +166,54 @@ function convertTranslateHoundify(destination, path, userId, sessionId, callback
 
 
 // riceve il file audio, lo rinomina e lo invia a Nuance per la tradizione in testo
+app.post('/stt_echo', upload.single('F_record'), function (req, res) {
+  logger.profile('process echo request');
+
+  var ani = "ani_undefined";
+  var hash = crypto.createHash('sha1');
+  var sessionId;
+  
+  logger.info('\n**** echo ****');
+  
+  // console.log(req);
+  if (req.body) {
+    ani = req.body.callerANI || ani;
+  }
+  hash.update(ani);
+  var userId = hash.digest('hex');
+
+  if (req.body) {
+    sessionId = req.body.sessionId;
+  }
+  if (!sessionId) {
+    sessionId = userId;
+    logger.warn('sessionId undefined, using userId');
+  }
+  
+  logger.info("userId: '%s', sessionId: '%s'", userId, sessionId);
+  
+//  res.send('result: <pre>' + JSON.stringify(req.file, null, 2) + '</pre>');
+//  fs.rename(req.file.path, req.file.destination + '/F_record.wav');
+  var myData = {};
+
+  convertSpeechToText(req.file.destination, req.file.path, userId, function(err, text) {
+    var data = {};
+    
+    logger.debug('conversion done, text: ', text);
+    if (err) {
+      data.err = err;
+    } else {
+      data.text = text;
+    }
+    res.render('echo', data);
+    logger.profile('process echo request');
+  });
+
+});
+
+
+
+// riceve il file audio, lo rinomina e lo invia a Nuance per la tradizione in testo
 app.post('/stt', upload.single('F_record'), function (req, res) {
   logger.profile('process stt request');
 
@@ -249,6 +297,11 @@ app.all('/main',  function (req, res) {
   res.sendFile('static/main.xml', {root: '.'});
 });
 
+app.all('/echo',  function (req, res) {
+  logger.info(req.path);
+  res.sendFile('static/echo.xml', {root: '.'});
+});
+
 // esegue il render di una qualunque view (per test)
 app.all('/view/:template\.:type', function(req, res) {
     logger.info("view: '%s'", req.url);
@@ -270,10 +323,49 @@ function generateToken() {
   });
 }
 
+
 generateToken();
 setInterval(generateToken, 9*60*1000);
 
 app.listen(process.env.PORT, function () {
   logger.info('Example app listening on port ' + process.env.PORT);
 });
+
+
+
+// prove per telestax, andrebbero in altra applicazione
+
+function logRequest(req) {
+    logger.debug("headers: %s", JSON.stringify(req.headers));
+    logger.debug("body: %s", JSON.stringify(req.body));
+}
+
+app.all('/as/:template', function(req, res) {
+    var toRender = "tx_" + req.params.template;
+    logger.info("call %s: '%s'", toRender, req.url);
+    logRequest(req);
+    res.type('xml');
+    res.render(toRender, req.query);
+});
+
+// app.all('/as/start', function(req, res) {
+//     logger.info("call start: '%s'", req.url);
+//     logRequest(req);
+//     res.type('xml');
+//     res.render('tx_start', req.query);
+// });
+
+// app.all('/as/callda', function(req, res) {
+//     logger.info("callda: '%s'", req.url);
+//     logRequest(req);
+//     res.type('xml');
+//     res.render('tx_callda', req.query);
+// });
+
+// app.all('/as/gather', function(req, res) {
+//     logger.info("gather: '%s'", req.url);
+//     // logRequest(req);
+//     res.type('xml');
+//     res.render('tx_start', req.query);
+// });
 
