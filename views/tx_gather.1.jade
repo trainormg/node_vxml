@@ -1,0 +1,6 @@
+doctype xml
+Response
+  Gather(action="/as/gather")
+    Play http://174.129.45.206:8080/tts?lang=sk&amp;txt=#{Digits}
+  Play http://174.129.45.206:8080/tts?lang=it&amp;txt=prova+coll+DA
+  Redirect /as/callda?Message=ahoj

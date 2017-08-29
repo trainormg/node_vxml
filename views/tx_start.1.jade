@@ -1,0 +1,7 @@
+doctype xml
+Response
+  Gather(action="/as/gather", method="GET", partialResultCallback="https://demo-project-trainormg.c9.io/partial", partialResultCallbackMethod="GET", input="speech")
+  Gather(action="/as/gather")
+    Play http://174.129.45.206:8080/tts?lang=sk&amp;txt=Asi+som+nerozumela...+Ako+Vám+môžem+pomôcť?
+  Play http://174.129.45.206:8080/tts?lang=sk&amp;txt=Asi+som+nerozumela...+Ako+Vám+môžem+pomôcť?
+  Redirect /as/callda?Message=ahoj

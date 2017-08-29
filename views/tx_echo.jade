@@ -1,0 +1,6 @@
+doctype xml
+Response
+  Say #{SpeechResult}
+  Gather(action="/as/echo", method="GET", language="en", input="speech", hints=".", timeout="3")
+  Say Gather failed
+  Redirect /as/echo?SpeechResult=error

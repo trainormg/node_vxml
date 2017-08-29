@@ -1,0 +1,16 @@
+doctype xml
+vxml(version="2.1", xmlns:voxeo="http://community.voxeo.com/xmlns/vxml")
+  form#F_echo
+    |<block>
+    if err
+      prompt(xml:lang="it-it") Spiacente, si e' verificato un errore.
+    else
+      prompt(xml:lang="it-it") Ecco cosa ho capito: #{text}.
+      if houndResponse
+        prompt #{houndResponse}
+      else if translation
+        prompt In English:  #{translation}
+    return/      
+    |</block>
+
+

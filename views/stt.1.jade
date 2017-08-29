@@ -1,0 +1,34 @@
+doctype xml
+vxml(version="2.1", xmlns:voxeo="http://community.voxeo.com/xmlns/vxml")
+  form#F1
+    field(name="F_1", type="boolean")
+      if err
+        prompt(xml:lang="it-it") Spiacente, si e' verificato un errore.
+      else
+        prompt(xml:lang="it-it") Ecco cosa ho capito: #{text}.
+        if houndResponse
+          prompt #{houndResponse}
+        els if translation
+          prompt In English:  #{translation}
+
+      prompt(xml:lang="it-it") Vuoi riprovare?
+      filled.
+        <log label="filled" expr="F_1"/>
+        <if cond="F_1==true">
+          <goto next="/main"/>
+        </if>
+        <log label="filled" expr="'else'"/>
+        <goto next="#FExit"/>
+      noinput
+        log(label="noinput" expr="'noinput'")/
+        goto(next="#FExit")/
+      nomatch
+        log(label="nomatch" expr="'nomatch'")/
+        goto(next="#FExit")/
+
+  form#FExit
+    |<block name="B_1">
+    prompt(xml:lang="it-it") Grazie per aver chiamato. Arrivederci!
+    disconnect/
+    exit/
+    |</block>

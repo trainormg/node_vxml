@@ -1,0 +1,9 @@
+doctype xml
+Response
+  Say Copy that
+  //-
+    Gather(action="/as/gather", method="GET", language="en", input="speech", hints=".", timeout="3")
+  
+  Gather(action="/as/gather", method="GET", language="en", input="speech", hints=".", timeout="3")
+  Say Gather failed
+  Redirect /as/callda?Message=hi
