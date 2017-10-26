@@ -1,0 +1,12 @@
+doctype xml
+Response
+  Say(language="it") ,Benvenuto alla demo A S R di Telestax.
+  Gather(action="/as/echo_it", method="GET", input="speech", language="it-IT", hints=".", timeout="3")
+  Redirect(method="GET") /as/echo_it?SpeechResult=Non+ho+capito,+ripeti.
+
+  //-  
+    Gather(action="/as/echo", method="GET", input="speech", language="en", hints=".", hints="12345,23454,3465431,864365390,987654321,1234567890,2134324586,2347547809,2537047987,3465431212,5555444433,8573520123,8573520482,8643653908,9897583726,21343245861,adresáta,agenta,ahoj,assistent,čakáte,čauko,čauky,chcel,chcem,chilku,chvilku,chviľku,chvílku,chvílu,chvíľu,číselko,cislo,číslo,človek,človeka,človekom,dajte,ďakujem,dáte,dobre,dobry,dobrý,ešte,fajn,finíto,furt,halo,hlasová,hlasové,hneď,hovoril,hovorím,hovoriť,internet,internetu,iptv,jasé,káble,katarína,kolegom,kolegovi,kontrolka,ktorá,kuknem,láskavo,lebo,linky,magio,mali,minutku,minútku,moja,moje,mojej,moment,môžem,môžete,musím,napriek,nebliká,nebudem,nechápem,nechce,nechcem,neda,nedá,nefunguje,nefungujú,nejde,nejdu,nemáte,neprestáva,nerozumiem,netu,neviem,nezhasína,niečo,nieje,niekoho,niekto,niekým,normálneho,normálny,normálným,odborníkom,ohľadne,ohladom,ospravedlňujem,overím,padáka,pardón,pekné,počkajte,počkáte,pohnojil,pohnojila,pokazila,pomôcť,popoludie,poriadku,poruchu,pošahala,potrebuje,potrebujem,pozerám,pozriem,pozrieť,preco,prečo,prepáčte,prepojiť,prepojte,prerusovane,prerušovane,prerusuje,prerušuje,pretože,preverím,pripojenie,pripojením,pritláčam,problem,prosím,reštartuvávam,robíte,robota,robotom,router,rozprávať,ruter,samozrejme,sekundičku,skontrolujem,skoro,služba,sluzby,služby,spať,spraviť,správne,srandu,stale,stále,strojom,svetlo,svieti,svietiť,takže,tebou,teda,telefon,telefón,telefonovať,telefónu,telekomu,televizia,televízia,televiziou,televíziou,televízor,telka,telke,telkou,tomu,toto,trvalo,urobiť,vami,vasim,vašim,vaším,vášmu,vcera,včera,vďaka,večer,vediet,vedieť,virtuálny,vôbec,volal,volala,volam,volám,volanie,vravela,zasekla,zavolajte,zavolať,zdravím,zdržania,zdržanie,zhasnúť,zistím", timeout="3")
+    Dial 390659567453
+    Dial 18003542322
+    Play http://174.129.45.206:8080/as/files?file=SLK_21.wav&amp;par=0.6302000080661811
+    Hangup

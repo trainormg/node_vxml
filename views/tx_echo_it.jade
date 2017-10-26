@@ -1,0 +1,5 @@
+doctype xml
+Response
+  Say(language="it") #{SpeechResult}
+  Gather(action="/as/echo_it", method="GET", language="it-IT", input="speech", hints=".", timeout="3")
+  Redirect(method="GET") /as/echo_it?SpeechResult=Non+ho+capito,+ripeti.
